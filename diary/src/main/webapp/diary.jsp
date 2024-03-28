@@ -69,7 +69,7 @@
 
 		int countDiv = startBlank + lastDate;	
         //DB에서 tYeary와 tMonth에 해당되는 diary 목록 추출
-        String sql2 = "SELECT diary_date diaryDate, day(diary_date) day, LEFT(title, 5) title FROM diary WHERE year(diary_date)=? AND month(diary_date)=?";
+        String sql2 = "SELECT diary_date diaryDate, day(diary_date) day, feeling, LEFT(title, 20) title FROM diary WHERE year(diary_date)=? AND month(diary_date)=?";
     	PreparedStatement stmt2 = null;
         ResultSet rs2 = null;
         stmt2 = conn.prepareStatement(sql2);
@@ -256,10 +256,12 @@
                                             //날짜에 일기가 존재한다
                                             if(rs2.getInt("day")== (i-startBlank))  {
                                 %>
+                                                
+                         
                                                 <div>
                                                     
                                                     <a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>'>
-                                                        <%=rs2.getString("title")%>...
+                                                        <%=rs2.getString("feeling")%> <%=rs2.getString("title")%>...
                                                     </a>
                                                 </div>
                                 <% 
