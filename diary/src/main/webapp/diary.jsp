@@ -79,8 +79,19 @@
         
         rs2 = stmt2.executeQuery();
         
-        
         conn.close(); // 자원반납을 위에서 하면 밑에 코드가 실행이안댐
+        
+        //점심 투표 목록 추출
+        //String sql3 ="SELECT lunch_date lunchDate, menu, update_date, create_date";
+    	//PreparedStatement stmt3 = null;
+        //ResultSet rs3 = null;
+        //stmt3 = conn.prepareStatement(sql3);
+        
+        //System.out.println(stmt3);
+        
+        //rs3 = stmt3.executeQuery();
+        
+        
 
 %>
 <!DOCTYPE html>
@@ -221,6 +232,7 @@
                 <button type="button" class="btn btn-primary"
                         onclick="location.href='/diary/addDiaryForm.jsp'">일기쓰기
                 </button>
+                <a href ="/diary/lunchOne.jsp" class="btn btn-primary">점심 투표</a>
 			</div>     
 		</div>	
     </div>

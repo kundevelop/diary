@@ -12,7 +12,7 @@
 	String content = request.getParameter("content");
 		
 	//디버깅
-	System.out.println(diaryDate + "<---diaryDate");
+	System.out.println(diaryDate + "<---diaryDate");   
 	System.out.println(feeling + "<---feeling");
 	System.out.println(title + "<---title");
 	System.out.println(weather + "<---weather");
@@ -43,6 +43,6 @@
 		System.out.println("입력실패");
 	}
 
-	// 3. 목록(cityboardList.jsp)을 재요청(redirect) 하게 한다
+	// 3. 목록(addDiaryForm.jsp)을 재요청(redirect) 하게 한다
 	response.sendRedirect("/diary/addDiaryForm.jsp");
 %>
