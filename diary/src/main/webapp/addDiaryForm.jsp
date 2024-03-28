@@ -110,7 +110,7 @@
 			
 			
 		</div>
-        
+        <!--  
         <div>
             기분 :
             <input type="radio" name ="feeling" value="&#128512">&#128512
@@ -121,6 +121,7 @@
             <input type="radio" name ="feeling" value="&#128564">&#128564
         
         </div>
+        -->
 		
 		<div>
 			제목 : <input type="text" name="title">
