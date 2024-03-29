@@ -2,6 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
+
+<%  
+    // 0. 로그인(인증) 분기
+    String loginMember = (String)(session.getAttribute("loginMember"));
+    if(loginMember == null) {
+    	String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+    	response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+    	return;
+    }
+%>
+
 <%
     //요청
     String lunchDate = request.getParameter("lunchDate");

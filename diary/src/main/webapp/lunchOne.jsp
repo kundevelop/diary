@@ -116,6 +116,7 @@
         <div>
             <a href ="/diary/diary.jsp" class="btn btn-dark">돌아가기</a>
             <button type="submit" class="btn btn-dark">입력</button>
+            <a href="/diary/lunchList.jsp" class="btn btn-dark">점심목록</a>
             <a href ="/diary/statsLunch.jsp" class="btn btn-dark">점심 통계</a>
         </div>   
     </form>

@@ -64,7 +64,7 @@
         } /*a태그는 인라인 속성이라 text align이 안됨*/ 
         
         .bg {
-              background-image: url(/diary/img/note2.png);
+              background-image: url(/diary/img/note3.png);
               background-repeat: no-repeat;
               background-size : cover;
 
@@ -73,30 +73,27 @@
               font-family:"Grandiflora One", cursive;
               font-weight: bold;
         }
+        .text {
+            text-align: center;
+        
+        }
+        #mainDiv {
+            margin-top: 100px;
+        
+        }
         </style>
 </head>
 <body class="bg gr">
-    <h1>일기 수정하기</h1>
-        <div>
+        <div class="container text-center" id="mainDiv">
+        <h1>일기 수정하기</h1>
             <form method = "post" action="/diary/updateDiaryAction.jsp">
 
-            <table>
+            <table  class="table center text">
                 <tr>
                     <td>날짜 :</td>
-                    <td><input type = "text" name = "diaryDate" value ='<%=rs2.getString("diaryDate")%>'></td>
-    
-                </tr>
-    
-    
-                <tr>
-                    <td>제목 :</td>
-                    <td><input type = "text" name = "title" value ='<%=rs2.getString("title")%>'></td>
-        
-                </tr>
-    
-    
-                <tr>
                     <td>
+                        <input type = "text" name = "diaryDate" value ='<%=rs2.getString("diaryDate")%>'>
+                       
                         <select name="weather">
                             <%
                                 if(rs2.getString("weather").equals("맑음")) {
@@ -142,10 +139,20 @@
 
                         </select>
                     </td>
+
                 </tr>
     
+    
+                <tr>
+                    <td>제목 :</td>
+                    <td><input type = "text" name = "title" value ='<%=rs2.getString("title")%>'></td>
+        
+                </tr>
+    
+
      
                 <tr>
+                    <td>내용 :</td>
                     <td><input type = "text" name = "content" value ='<%=rs2.getString("content")%>'></td>
                 </tr>
 
@@ -156,8 +163,9 @@
     		</div>
 
 
-
+                
                 <button type="submit" class="btn btn-outline-light">수정</button>
+                <a href="/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>" class="btn btn-outline-light" >돌아가기</a>
             
     
     

@@ -60,11 +60,11 @@
      </style>
 </head>
 <body class="gr">
-	<h1>statsLunch</h1>
+	<h1>점심통계</h1>
 	
 	<%
 				double maxHeight = 500;
-				double totalCnt = 0; //
+				double totalCnt = 0; 
 				while(rs2.next()) {
 					totalCnt = totalCnt + rs2.getInt("cnt");
 				}
@@ -107,7 +107,10 @@
 			%>
 		</tr>
 	</table>
-	<div><a href="/diary/diary.jsp">돌아가기</a></div>
+	<div><a href="/diary/diary.jsp" class="btn btn-dark">처음으로</a>
+         <a href="/diary/lunchOne.jsp" class="btn btn-dark">뒤로가기</a>
+    </div>
+    
 	
 	
 </body>

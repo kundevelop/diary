@@ -13,9 +13,11 @@
 %>	
 
 <%
+
     Class.forName("org.mariadb.jdbc.Driver");
     Connection conn = null;
     conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+    
     
     
     
@@ -38,9 +40,6 @@
 	if(request.getParameter("searchWord") != null) {
 		searchWord = request.getParameter("searchWord");
 	}
-    
-    
-    
     
     
 	/*
@@ -81,7 +80,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>diaryList</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <style>
@@ -105,10 +104,11 @@
                   font-weight: bold;
             }
             
-                    
             #mainDiv{
-                margin-top: 100px;
+            margin-top: 100px;
             }
+            
+            
         </style>
 </head>
 <body class="gr bg">
@@ -131,9 +131,32 @@
     		%>
     	</table>
     	
+        
     	<div>
-    		<a href="" class="btn btn-outline-light">이전</a>
-    		<a href="" class="btn btn-outline-light">다음</a>
+            
+            <%
+                if(currentPage>1) {
+            %>
+                <a href="/diary/diaryList.jsp?currentPage=1" class="btn btn-outline-light">처음 페이지</a>
+        		<a href="/diary/diaryList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-light">이전</a>
+        		
+            <%
+                } else {
+                   
+            %>
+                <a href="/diary/diaryList.jsp?currentPage=1" class="btn btn-outline-light page-item disabled">처음 페이지</a>
+                <a href="/diary/diaryList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-light page-item disabled">이전</a>
+            <%
+                } if(currentPage < lastPage) {
+                
+            %>
+                <a href="/diary/diaryList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-light">다음</a>
+                <a href="/diary/diaryList.jsp?currentPage=<%=lastPage%>" class="btn btn-outline-light">마지막페이지</a>
+            
+            <%
+                }
+            %>
+
             <a href="/diary/diary.jsp" class="btn btn-outline-light">돌아가기</a>
     	</div>
     	<form method="get" action="/diary/diaryList.jsp">
