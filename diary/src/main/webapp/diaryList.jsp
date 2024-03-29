@@ -2,31 +2,23 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.*"%>
 <%
-	// 0. 로그인(인증) 분기
-	// diary.login.my_session => 'OFF' => redirect("loginForm.jsp")
-	
-	String sql1 = "select my_session mySession from login";
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection(
-			"jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	String mySession = null;
-	if(rs1.next()) {
-		mySession = rs1.getString("mySession");
-	}
-	// diary.login.my_session => 'OFF' => redirect("loginForm.jsp")
-	if(mySession.equals("OFF")) {
-		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
-		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
-		return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용
-	}
+
+    // 0. 로그인(인증) 분기
+    String loginMember = (String)(session.getAttribute("loginMember"));
+    if(loginMember == null) {
+    	String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+    	response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+    	return;
+    }
 %>	
 
 <%
+    Class.forName("org.mariadb.jdbc.Driver");
+    Connection conn = null;
+    conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+    
+    
+    
 	// 출력 리스트 모듈
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null) {
@@ -46,6 +38,11 @@
 	if(request.getParameter("searchWord") != null) {
 		searchWord = request.getParameter("searchWord");
 	}
+    
+    
+    
+    
+    
 	/*
 		select diary_date diaryDate, title
 		from diary
@@ -98,7 +95,7 @@
             } /*a태그는 인라인 속성이라 text align이 안됨*/ 
             
             .bg {
-                  background-image: url(/diary/img/note2.png);
+                  background-image: url(/diary/img/note3.png);
                   background-repeat: no-repeat;
                   background-size : cover;
     
@@ -106,6 +103,11 @@
             .gr {
                   font-family:"Grandiflora One", cursive;
                   font-weight: bold;
+            }
+            
+                    
+            #mainDiv{
+                margin-top: 100px;
             }
         </style>
 </head>

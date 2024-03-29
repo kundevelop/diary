@@ -3,42 +3,22 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.URLEncoder"%>
 <%@ page import = "java.util.*" %>
-<%
-	//로그인(인증) 분기
-	//diary.login.my_session => 'OFF'=> redirect("loginForm.jsp") DB설정
+<% 
+    	String loginMember = (String)(session.getAttribute("loginMember"));
+    	if(loginMember == null) {
+    		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+    		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+    		return;
+    	}
+%>
+
+<%	
+
 	
-	String sql1="SELECT my_session mySession FROM login"; // my_session 값가져오는데 별칭으로 가져온다
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	String mySession = null;
-	if(rs1.next()) {
-		mySession = rs1.getString("mySession"); // 괄호안에 1적으면 컬럼명 첫번째꺼 가르킴
-	}
-	
-	if(mySession.equals("OFF")) {
-		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저해주세요", "utf-8"); //utf-8로 인코딩
-		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
-		//DB자원반납
-		rs1.close();
-		stmt1.close();
-		conn.close();
-		return; //코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용
-	}
-	
-		// if 문에 안 걸릴때 ...
-		rs1.close();
-		stmt1.close();
-		
-		
-		
 		//-------달력-------
-		
+        Class.forName("org.mariadb.jdbc.Driver");
+        Connection conn = null;
+        conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 		//1. 요청 분석
 		//출력하고자는 달력의 년과 월값을 넘겨받음
 		String tagrgetYear = request.getParameter("targetYear");
@@ -175,7 +155,6 @@
 </head>
 <body class="gr bg">
     <a href="/diary/diary.jsp">다어이리 모양으로 보기</a>
-    <a href="/diary/diaryList.jsp">다어이리 리스트 보기</a>
 	<div class="container text-center" id="mainDiv">
 		<div>
 			<h1 class="textcenter">&#128216 일기장 &#128216</h1>
@@ -232,6 +211,7 @@
                 <button type="button" class="btn btn-primary"
                         onclick="location.href='/diary/addDiaryForm.jsp'">일기쓰기
                 </button>
+                <a href="/diary/diaryList.jsp" class="btn btn-primary">일기목록</a>
                 <a href ="/diary/lunchOne.jsp" class="btn btn-primary">점심 투표</a>
 			</div>     
 		</div>	

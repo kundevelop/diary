@@ -4,6 +4,7 @@
 <%@ page import="java.net.*"%>
 
 <%
+    /*
     //로그인(인증) 분기
     //diary.login.my_session => 'OFF'=> redirect("loginForm.jsp") DB설정
     
@@ -29,12 +30,25 @@
     	stmt1.close();
     	conn.close();
     	return; //코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용
-    }
+    }*/
+    
+  
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	if(loginMember == null) {
+		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		return;
+	}
 
 
 %>
 
 <%
+    Class.forName("org.mariadb.jdbc.Driver");
+    Connection conn = null;
+
+    conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+    
     String diaryDate = request.getParameter("diaryDate");
 
     String onesql = "SELECT diary_date as diaryDate , title, weather, content, update_date, create_date FROM diary WHERE diary_date = ?";
