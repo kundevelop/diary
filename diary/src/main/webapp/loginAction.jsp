@@ -30,8 +30,6 @@
     
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
 	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	
 	String sql2 = "select member_id memberId from member where member_id=? and member_pw=?";
